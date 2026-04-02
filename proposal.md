@@ -2,19 +2,19 @@
 
 ## What will (likely) be the title of your project?
 
-TODO
+Babble
 
 ## In just a sentence or two, summarize your project. (E.g., "A website that lets you buy and sell stocks.")
 
-TODO
+I will make a board which allows you to place letters upon it, giving one or two players points as they make words, similar to the board game, Scrabble.
 
 ## In a paragraph or more, detail your project. What will your software do? What features will it have? How will it be executed?
 
-TODO
+My software will function similar to how the Scrabble board game is played, swapping between two players as it does so. To do this, a simple boolean variable could likely be used. Players can place letters on the board and once they have told the program they have finished their word, they can be attributed points based on the point value of each letter used. Dictionaries could be used to store the point values of each letter as well as the quantity of each letter so that, for example, 2 x's are not placed on the board when there are only 1 in the original game. Both players will be given 7 random letters at the start of the game and at the end of each turn be given more random letters until they have 7 again. Each time a letter is randomly selected, the program should subtract 1 from its quantity in the letterQuantity dictionary similar to how you would reach into the letter pouch to get more when playing the board game. To ensure that the program knows which player has which letters, lists could be given to each player. Lastly, there should be some system set in place that would allow the program to keep track of other words on the board so that letters could be placed between them to form new ones. 
 
 ## If planning to combine 1051's final project with another course's final project, with which other course? And which aspect(s) of your proposed project would relate to 1051, and which aspect(s) would relate to the other course?
 
-TODO, if applicable
+Not combining with another course's final project.
 
 ## If planning to collaborate with 1 or 2 classmates for the final project, list their names, email addresses, and the names of their assigned TAs below.
 
