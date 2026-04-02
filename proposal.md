@@ -18,22 +18,22 @@ Not combining with another course's final project.
 
 ## If planning to collaborate with 1 or 2 classmates for the final project, list their names, email addresses, and the names of their assigned TAs below.
 
-TODO, if applicable
+I am not planning to collaborate with other classmates.
 
 ## In the world of software, most everything takes longer to implement than you expect. And so it's not uncommon to accomplish less in a fixed amount of time than you hope.
 
 ### In a sentence (or list of features), define a GOOD outcome for your final project. I.e., what WILL you accomplish no matter what?
 
-TODO
+Have a functional Scrabble-inspired board game that follows most of the real rules of Scrabble and knows how letters should be properly placed, while subtracting the quantity of those letters each time and giving players points at the appropriate times. 
 
 ### In a sentence (or list of features), define a BETTER outcome for your final project. I.e., what do you THINK you can accomplish before the final project's deadline?
 
-TODO
+Have a functional Scrabble-inspired virtual game that follows most of the real rules of Scrabble and has an option to be played between 2 and 4 players. 
 
 ### In a sentence (or list of features), define a BEST outcome for your final project. I.e., what do you HOPE to accomplish before the final project's deadline?
 
-TODO
+Have a fully functional virtual Scrabble game that uses AI to access a dictionary to check the validity of words.
 
 ## In a paragraph or more, outline your next steps. What new skills will you need to acquire? What topics will you need to research? If working with one of two classmates, who will do what?
 
-TODO
+I would first need to look into how to use pygame. Through pygame, I can figure out how to efficiently create an interactive visual board since using a turtle in IDLE and trying to figure out which spots would have to be clicked would be very ineffecient. Next, to ensure the game is set up correctly, I could create a letterPoints dictionary, a letterQuantities dictionary, two empty lists that will be used later to store letters for each player, and a isPlayerOneTurn variable that can be used to swap between the two players.
