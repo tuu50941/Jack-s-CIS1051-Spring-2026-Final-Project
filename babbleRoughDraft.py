@@ -3,10 +3,8 @@ import sys
 import random
 
 
-########### REMOVE LETTERS PLACED AND ADD NEW RANDOM ONES ONCE A PLAYER'S TURN
-########### HAS ENDED (> IS ENTERED)
-
-########### ADD A FEATURE THAT LETS PLAYERS RESHUFFLE THEIR LETTERS
+########### CLEANUP / ADD COMMENTS FOR CLARITY
+########### ANY OTHER FEATURES???
 
 
 # --- Game Settings ---
@@ -69,7 +67,7 @@ def draw_board():
                 screen.blit(letter_surface, (col * TILE_SIZE + 10, row * TILE_SIZE + 8))
 
 def draw_status():
-    status_text = f"{players[current_player]}'s turn | Scores: {scores[0]} - {scores[1]} | Letter: {selected_letter} \n Player 1's: {player1Letters} | Player 2's: {player2Letters}"
+    status_text = f"{players[current_player]}'s turn | Scores: {scores[0]} - {scores[1]} | Letter: {selected_letter} | Shuffle: < | End Turn: > \n Player 1's: {player1Letters} | Player 2's: {player2Letters}"
     status_surface = font.render(status_text, True, BLUE)
     screen.blit(status_surface, (10, SCREEN_SIZE + 10))
 
@@ -98,7 +96,60 @@ while True:
 
         elif event.type == pygame.KEYDOWN:
             if event.unicode == ">":
+                if current_player == 0:
+                    for i in range(len(player1Letters)):
+                        #if iterator reaches a certain amount,
+                        #there may not be letters left to collect
+                        endTurnIterator1 = 0
+                        while player1Letters[i] == "":
+                            player1Letters[i] = random.choice(list(letterPoints.keys()))
+                            if endTurnIterator1 >= 52:
+                                player1Letters[i] = "NA"
+                            endTurnIterator1 += 1
+                        if player1Letters[i] == "NA":
+                            player1Letters[i] = ""
+                elif current_player == 1:
+                    for i in range(len(player2Letters)):
+                        endTurnIterator2 = 0
+                        while player2Letters[i] == "":
+                            player2Letters[i] = random.choice(list(letterPoints.keys()))
+                            if endTurnIterator2 >= 52:
+                                player2Letters[i] = "NA"
+                            endTurnIterator2 += 1
+                        if player2Letters[i] == "NA":
+                            player2Letters[i] = ""
                 current_player = (current_player + 1) % 2
+                
+            elif event.unicode == "<":
+                if current_player == 0:
+                    for i in range(len(player1Letters)):
+                        shuffleLetter1 = random.choice(list(letterPoints.keys()))
+                        shuffleIterator1 = 0
+                        #keep shuffling until player has 7 letters again
+                        while letterQuantities[shuffleLetter1] == 0:
+                            shuffleLetter1 = random.choice(list(letterPoints.keys()))
+                            if shuffleIterator1 >= 52:
+                                player2Letters[i] = "NA"
+                            shuffleIterator1 += 1
+                        if player1Letters[i] == "NA":
+                            player1Letters[i] = ""
+                        else:
+                            player1Letters[i] = shuffleLetter1
+                elif current_player == 1:
+                    for i in range(len(player2Letters)):
+                        shuffleLetter2 = random.choice(list(letterPoints.keys()))
+                        shuffleIterator2 = 0
+                        while letterQuantities[shuffleLetter2] == 0:
+                            shuffleLetter2 = random.choice(list(letterPoints.keys()))
+                            if shuffleIterator2 >= 52:
+                                player2Letters[i] = "NA"
+                            shuffleIterator2 += 1
+                        if player2Letters[i] == "NA":
+                            player2Letters[i] = ""
+                        else:
+                            player2Letters[i] = shuffleLetter2
+                current_player = (current_player + 1) % 2
+                
             elif event.unicode.isalpha() and len(event.unicode) == 1:
                 letterTyped = event.unicode.upper()
                 if current_player == 0 and letterTyped in player1Letters:
