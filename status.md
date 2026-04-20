@@ -18,7 +18,7 @@ Short answers for the below questions suffice. If you want to alter your plan fo
 
 #### What have you done for your project so far?
 
-For the most part, I believe I could be finished. I have implemented an interactable board, letters that can be selected by typing them (only if they are in the current player's letter list and still remain in the letterQuantities dictionary), appropriate scoring for whichever letter is placed, and many of the original rules of Scrabble. 
+For the most part, I believe I am close to being finished with my project. I have implemented an interactable board, letters that can be selected by typing them (only if they are in the current player's letter list and still remain in the letterQuantities dictionary), appropriate scoring for whichever letter is placed, and many of the original rules of Scrabble. 
 
 #### What have you not done for your project yet?
 
