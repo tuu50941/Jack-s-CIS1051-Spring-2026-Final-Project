@@ -3,11 +3,8 @@ import sys
 import random
 
 
-########### CLEANUP / ADD COMMENTS FOR CLARITY
-########### ANY OTHER FEATURES???
 
-
-# --- Game Settings ---
+# Board and font settings
 TILE_SIZE = 40
 BOARD_SIZE = 15
 SCREEN_SIZE = TILE_SIZE * BOARD_SIZE
@@ -40,7 +37,7 @@ letterQuantities = {"A":9,"B":2,"C":2,"D":4,"E":12,"F":2,"G":3,"H":2,"I":9,
                     "J":1,"K":1,"L":4,"M":2,"N":6,"O":8,"P":2,"Q":1,"R":6,
                     "S":4,"T":6,"U":4,"V":2,"W":2,"X":1,"Y":2,"Z":1}
 
-#Create initial lists for both players
+# Create initial lists for both players
 for i in range(len(player1Letters)):
     randomLetter = random.choice(list(letterPoints.keys()))
     while letterQuantities[randomLetter] <= 0:
@@ -53,7 +50,7 @@ for i in range(len(player1Letters)):
     player2Letters[i] = randomLetter2
     letterQuantities[randomLetter2] -= 1
 
-#Start with a random placeholder letter
+# Start with a random placeholder letter
 selected_letter = random.choice(list(letterPoints.keys()))
 
 def draw_board():
@@ -66,11 +63,13 @@ def draw_board():
                 letter_surface = font.render(board[row][col], True, BLACK)
                 screen.blit(letter_surface, (col * TILE_SIZE + 10, row * TILE_SIZE + 8))
 
+# Display info on player letters, scores, selected_letter
 def draw_status():
     status_text = f"{players[current_player]}'s turn | Scores: {scores[0]} - {scores[1]} | Letter: {selected_letter} | Shuffle: < | End Turn: > \n Player 1's: {player1Letters} | Player 2's: {player2Letters}"
     status_surface = font.render(status_text, True, BLUE)
     screen.blit(status_surface, (10, SCREEN_SIZE + 10))
 
+# place letter on board
 def place_tile(pos):
     global current_player
     x, y = pos
@@ -79,7 +78,7 @@ def place_tile(pos):
         board[row][col] = selected_letter + " (" + str(letterPoints[selected_letter]) + ")"
         scores[current_player] += letterPoints[selected_letter]
         letterQuantities[selected_letter] -= 1
-        #replace placed letters with a ""
+        # replace placed letters with a "" in player letter lists
         if current_player == 0:
             sLIndex = player1Letters.index(selected_letter)
             player1Letters[sLIndex] = ""
@@ -87,7 +86,7 @@ def place_tile(pos):
             sLIndex2 = player2Letters.index(selected_letter)
             player2Letters[sLIndex2] = ""
 
-# --- Main Loop ---
+# Main loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -95,11 +94,12 @@ while True:
             sys.exit()
 
         elif event.type == pygame.KEYDOWN:
+            # if > pressed, end turn and refill empty spots in letter lists
             if event.unicode == ">":
                 if current_player == 0:
                     for i in range(len(player1Letters)):
-                        #if iterator reaches a certain amount,
-                        #there may not be letters left to collect
+                        # if iterator reaches a certain amount,
+                        # there may not be letters left to collect
                         endTurnIterator1 = 0
                         while player1Letters[i] == "":
                             player1Letters[i] = random.choice(list(letterPoints.keys()))
@@ -119,13 +119,14 @@ while True:
                         if player2Letters[i] == "NA":
                             player2Letters[i] = ""
                 current_player = (current_player + 1) % 2
-                
+            # if < pressed, reshuffle letters given to current player and
+            # end their turn
             elif event.unicode == "<":
                 if current_player == 0:
                     for i in range(len(player1Letters)):
                         shuffleLetter1 = random.choice(list(letterPoints.keys()))
                         shuffleIterator1 = 0
-                        #keep shuffling until player has 7 letters again
+                        # keep shuffling until player has 7 letters again
                         while letterQuantities[shuffleLetter1] == 0:
                             shuffleLetter1 = random.choice(list(letterPoints.keys()))
                             if shuffleIterator1 >= 52:
@@ -149,14 +150,16 @@ while True:
                         else:
                             player2Letters[i] = shuffleLetter2
                 current_player = (current_player + 1) % 2
-                
+            # if a typed letter is in a player's letter list, it becomes
+            # selected_letter                
             elif event.unicode.isalpha() and len(event.unicode) == 1:
                 letterTyped = event.unicode.upper()
                 if current_player == 0 and letterTyped in player1Letters:
                     selected_letter = letterTyped
                 if current_player == 1 and letterTyped in player2Letters:
                     selected_letter = letterTyped
-
+        # if certain tile clicked while a certain letter is selected that
+        # still has a quantity greater than 0, place the letter 
         elif event.type == pygame.MOUSEBUTTONDOWN and letterQuantities[selected_letter] > 0:
             place_tile(pygame.mouse.get_pos())
 
